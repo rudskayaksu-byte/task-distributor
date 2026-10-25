@@ -9,18 +9,12 @@
     font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
     margin: 0; padding: 20px; background: #ffffff; color: #222;
   }
-
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #e8f0ed;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e8f0ed;
   }
   .header h1 { font-size: 26px; margin: 0; font-weight: 600; color: #225545; }
   .header img { height: 80px; width: auto; }
-
   .tabs { display: flex; gap: 4px; margin-bottom: 15px; }
   .tab {
     padding: 8px 16px; background: #e8f0ed; border: none; cursor: pointer;
@@ -30,7 +24,6 @@
   .tab.active { background: #f8faf9; font-weight: 600; color: #225545; border-bottom: 2px solid #225545; }
   .page { display: none; background: #f8faf9; padding: 20px; border-radius: 0 4px 4px 4px; }
   .page.active { display: block; }
-
   .row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
   .hint { color: #6b8078; font-size: 12px; }
   button {
@@ -43,33 +36,68 @@
   button.danger { background: #c0392b; }
   button.danger:hover { background: #a93226; }
   button:disabled { background: #ccc; cursor: not-allowed; color: #888; }
-
-  input[type="text"], select {
+  input[type="text"], select, textarea {
     padding: 7px 10px; border: 1px solid #c5d6d0; border-radius: 4px; font-size: 14px;
-    background: #fff; color: #222;
+    background: #fff; color: #222; font-family: inherit;
   }
-  input[type="text"]:focus, select:focus {
+  input[type="text"]:focus, select:focus, textarea:focus {
     outline: none; border-color: #225545; box-shadow: 0 0 0 2px rgba(34,85,69,0.15);
   }
-
   .search-box {
     display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;
     padding: 10px; background: #fff; border: 1px solid #d4e3dd; border-radius: 4px;
   }
-
+  .icon-btn {
+    padding: 4px 8px; background: #e8f0ed; color: #225545; border: 1px solid #c5d6d0;
+    border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; line-height: 1;
+  }
+  .icon-btn:hover { background: #d4e3dd; color: #1a4035; }
   table { border-collapse: collapse; width: 100%; font-size: 13px; background: #fff; }
   th, td { border: 1px solid #d4e3dd; padding: 6px 8px; text-align: left; vertical-align: top; }
   th { background: #e8f0ed; font-weight: 600; position: sticky; top: 0; color: #225545; z-index: 10; }
   td.center { text-align: center; }
   .table-wrap { max-height: 60vh; overflow: auto; border: 1px solid #d4e3dd; background: #fff; }
   .cell-edit { width: 100%; padding: 4px; font-size: 13px; border: 1px solid #225545; border-radius: 3px; }
-  .name-col { min-width: 400px; max-width: 600px; white-space: normal; }
-  .section-col { width: 90px; font-weight: 600; background: #f5faf8; color: #225545; }
+
+  .name-col { min-width: 300px; max-width: 500px; white-space: normal; cursor: pointer; color: #225545; font-weight: 500; }
+  .name-col:hover { background-color: #f0f5f3; text-decoration: underline; }
+
   .status { color: #6b8078; font-size: 13px; }
   .small-btn { padding: 3px 8px; font-size: 12px; }
   .del-btn { padding: 2px 6px; font-size: 14px; background: transparent; color: #c0392b; border: none; cursor: pointer; }
   .del-btn:hover { color: #a93226; }
   label { font-size: 14px; color: #225545; font-weight: 500; }
+  .cell-error { background-color: #f8d7da !important; border-color: #c0392b !important; }
+
+  .modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: #fff; width: 900px; max-width: 95%; border-radius: 8px; padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; max-height: 90vh;
+  }
+  .modal h2 { margin-top: 0; color: #225545; font-size: 20px; }
+  .modal-row { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
+  .modal-body { flex: 1; overflow: auto; border: 1px solid #d4e3dd; border-radius: 4px; }
+  .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px; }
+  .small-modal {
+    background: #fff; width: 500px; max-width: 95%; border-radius: 8px; padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column;
+  }
+  .small-modal h3 { margin-top: 0; color: #225545; font-size: 18px; }
+  .small-modal p { font-size: 13px; color: #555; margin-bottom: 15px; line-height: 1.4; }
+  .small-modal textarea { min-height: 80px; resize: vertical; }
+
+  .info-modal { width: 700px; max-height: 85vh; }
+  .info-content { font-size: 14px; line-height: 1.5; color: #333; }
+  .info-content b { color: #225545; }
+  .info-block { margin-bottom: 15px; padding: 10px; background: #f8faf9; border-left: 4px solid #225545; border-radius: 4px; }
+
+  .staff-input-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+  .staff-input-row input { flex: 1; }
 </style>
 </head>
 <body>
@@ -84,55 +112,60 @@
   <button class="tab" onclick="switchTab(1)">Распределение задач</button>
 </div>
 
-<!-- ═══════════ СТРАНИЦА 1 ═══════════ -->
 <div class="page active" id="page0">
   <div class="row">
     <label>Название проекта:</label>
-    <input type="text" id="projectName" style="width:400px" placeholder="Например: 2350_Центр_методологии_проектирования_ВнПроект" oninput="markUnsaved()">
+    <input type="text" id="projectName" style="width:400px" placeholder="Например: 2350_Центр_методологии" oninput="markUnsaved()">
     <span class="hint">Должно совпадать с названием проекта в Битрикс</span>
   </div>
   <div class="row">
     <button onclick="document.getElementById('staffingFile').click()">Загрузить Excel</button>
     <input type="file" id="staffingFile" accept=".xlsx,.xls" style="display:none" onchange="loadStaffing(event)">
-    <!-- Убран текст "Файл не загружен" -->
-
-    <!-- Кнопка полной очистки данных -->
-    <button class="danger" onclick="clearAllData()" style="margin-left:auto;">Очистить все данные</button>
-  </div>
-  <div id="staffingTable"></div>
-  <div class="row" style="margin-top:12px">
+    <button class="secondary" onclick="openManualStaffingModal()">Создать вручную</button>
     <button onclick="saveStaffing()">Сохранить</button>
   </div>
+  <div id="staffingTable"></div>
 </div>
 
-<!-- ═══════════ СТРАНИЦА 2 ═══════════ -->
 <div class="page" id="page1">
   <div class="row">
-    <button onclick="document.getElementById('tasksFile').click()">Загрузить задачи</button>
-    <input type="file" id="tasksFile" accept=".xlsx,.xls" style="display:none" onchange="loadTasks(event)">
-    <button class="secondary" onclick="addTask()" id="addTaskBtn" disabled>Добавить задачу</button>
-    <span class="status" id="tasksStatus">Файл не загружен</span>
+    <label>Стадия:</label>
+    <select id="stageSelect" onchange="changeStage()">
+      <option value="ПД">ПД</option>
+      <option value="ПП">ПП</option>
+      <option value="ТД">ТД</option>
+      <option value="РД">РД</option>
+    </select>
+
+    <button class="secondary" onclick="document.getElementById('taskBaseFile').click()" style="margin-left:10px;">Загрузить базу для этой стадии</button>
+    <input type="file" id="taskBaseFile" accept=".xlsx,.xls" style="display:none" onchange="loadTaskBase(event)">
+
+    <button class="secondary" onclick="openAddTaskModal()" id="addTaskBtn" disabled>+ Добавить задачу</button>
 
     <div style="margin-left:auto; display: flex; gap: 8px;">
       <button onclick="saveTasksExcel()">Сохранить в Excel</button>
-      <button onclick="saveTasksCsv()">Сохранить в CSV</button>
+      <button onclick="saveTasksCsv()">Сохранить для Битрикс (CSV)</button>
     </div>
   </div>
 
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Поиск по названию задачи..." style="flex:1;" oninput="renderTasks()">
+    <input type="text" id="searchInput" placeholder="Поиск по названию задачи..." style="flex:1; min-width:200px;" oninput="renderTasks()">
 
     <label style="margin-left:10px;">Раздел:</label>
-    <select id="sectionFilter" onchange="renderTasks()" disabled>
+    <select id="sectionFilter" onchange="renderTasks()" disabled style="width:150px;">
       <option value="">Все разделы</option>
     </select>
 
-    <button class="secondary small-btn" onclick="resetFilters()" style="margin-left:10px;">Сбросить фильтры</button>
+    <button class="icon-btn" onclick="resetFilters()" title="Сбросить фильтры">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
 
     <div style="margin-left:auto; display: flex; align-items: center; gap: 8px;">
-      <label>Кодировка CSV:</label>
+      <label>Кодировка:</label>
       <select id="csvEncoding">
-        <option value="utf-8">UTF-8 (с BOM)</option>
+        <option value="utf-8">UTF-8</option>
         <option value="windows-1251">Windows-1251</option>
       </select>
     </div>
@@ -141,49 +174,185 @@
   <div class="table-wrap" id="tasksTableWrap"></div>
 </div>
 
-<!-- Подключение библиотеки SheetJS -->
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<div class="modal-overlay" id="infoModal">
+  <div class="modal info-modal">
+    <h2 id="infoTaskTitle">Название задачи</h2>
+    <div class="modal-body info-content" style="padding: 15px;">
+      <div class="info-block" id="infoSections"></div>
+      <div class="info-block" id="infoDescription"></div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeInfoModal()">Закрыть</button>
+    </div>
+  </div>
+</div>
 
+<div class="modal-overlay" id="addTaskModal">
+  <div class="modal">
+    <h2>Добавить задачу на стадию <span id="modalStageName" style="color: #c0392b;"></span></h2>
+    <div class="modal-row">
+      <label>Источник:</label>
+      <select id="modalSourceSelect" onchange="renderModalTasks()" style="width: 220px;"></select>
+      <button class="secondary" onclick="document.getElementById('modalFile').click()">Загрузить базу для выбранного источника</button>
+      <input type="file" id="modalFile" accept=".xlsx,.xls" style="display:none" onchange="loadModalTaskBase(event)">
+    </div>
+    <div class="modal-row">
+      <input type="text" id="modalSearchInput" placeholder="Поиск по названию..." style="flex:1;" oninput="renderModalTasks()">
+      <button class="secondary" onclick="createCustomTaskPrompt()">Создать новую</button>
+    </div>
+    <div class="modal-body">
+      <table id="modalTasksTable">
+        <thead><tr><th style="width: 50px; text-align: center;">Выбор</th><th>Название задачи</th></tr></thead>
+        <tbody id="modalTasksList"></tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button class="secondary" onclick="closeAddTaskModal()">Отмена</button>
+      <button onclick="addSelectedTasks()">Добавить выбранные</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="customTaskModal">
+  <div class="small-modal">
+    <h3>Создание новой задачи</h3>
+    <div style="margin-bottom: 10px;">
+      <label style="font-size: 13px;">Название задачи:</label>
+      <input type="text" id="customTaskTitle" style="width: 100%; margin-top: 4px;" placeholder="Например: ОВиК.15_Моя новая задача">
+      <div class="hint" style="margin-top: 4px;">Формат: Префикс.Номер_Название (например: АР.10_Задание на потолки)</div>
+    </div>
+    <p style="margin-bottom: 5px;"><b>Кому выдается результат задания?</b><br>
+    Укажите разделы (например, АР, КР, ОВиК) — можно через запятую. Регистр не важен.</p>
+    <input type="text" id="customTaskTags" placeholder="Например: АР, КР, ОВиК" style="margin-bottom: 15px;">
+    <div style="margin-bottom: 10px;">
+      <label style="font-size: 13px;">Добавить описание задачи? (необязательно)</label><br>
+      <div style="margin-top: 5px; display: flex; gap: 10px;">
+        <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="useDesc" value="no" checked onchange="toggleDescInput()"> Нет</label>
+        <label style="font-weight: normal; cursor: pointer;"><input type="radio" name="useDesc" value="yes" onchange="toggleDescInput()"> Да</label>
+      </div>
+    </div>
+    <textarea id="customTaskDesc" placeholder="Введите описание или инструкцию..." style="display: none; width: 100%; margin-bottom: 15px;"></textarea>
+    <div class="modal-footer">
+      <button class="secondary" onclick="closeCustomTaskModal()">Отмена</button>
+      <button onclick="saveCustomTask()">Создать</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="manualStaffingModal">
+  <div class="modal" style="width: 600px;">
+    <h2>Создание штатного расписания</h2>
+    <p class="hint" style="margin-bottom: 15px;">Вводите должность с аббревиатурой (ГС, ВС, СП, ТЕХ) и ФИО через запятую. Программа сама расшифрует должность.</p>
+
+    <div id="manualStaffingList" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px;"></div>
+
+    <button class="secondary" onclick="addManualStaffRow()" style="align-self: flex-start; margin-bottom: 15px;">+ Добавить строку</button>
+
+    <div class="modal-footer">
+      <button class="secondary" onclick="closeManualStaffingModal()">Отмена</button>
+      <button onclick="saveManualStaffing()">Сохранить штатку</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="mapColumnsModal">
+  <div class="small-modal">
+    <h3>Настройка столбцов</h3>
+    <p>Программа не смогла автоматически распознать столбцы. Пожалуйста, укажите, где находится нужная информация:</p>
+
+    <div style="margin-bottom: 10px;">
+      <label>Столбец с должностью:</label>
+      <select id="mapColPosition" style="width: 100%; margin-top: 4px;"></select>
+    </div>
+    <div style="margin-bottom: 10px;">
+      <label>Столбец с ФИО (или Фамилией):</label>
+      <select id="mapColName" style="width: 100%; margin-top: 4px;"></select>
+    </div>
+
+    <div class="modal-footer">
+      <button class="secondary" onclick="closeMapColumnsModal()">Отмена</button>
+      <button onclick="applyColumnMapping()">Применить</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script>
+  // ═══════════ ГЛОБАЛЬНОЕ СОСТОЯНИЕ ═══════════
 const state = {
   projectName: "",
   positions: {},
   employees: [],
+  currentStage: "ПД",
   tasks: [],
-  visibleCols: [],
-  boolCols: new Set(),
-  dateCols: new Set(),
-  originalHeaders: [],
+  allTasks: { "ПП": [], "ПД": [], "ТД": [], "РД": [] },
+  taskBases: { "ПП": [], "ПД": [], "ТД": [], "РД": [] },
+  isDirty: false,
   sections: [],
-  isDirty: false
+  manualRows: [],
+  pendingFileData: null
 };
 
-window.addEventListener('DOMContentLoaded', () => {
-  const savedProject = localStorage.getItem('distributor_projectName');
-  const savedEmployees = localStorage.getItem('distributor_employees');
+const EDITABLE_COLS = ["Крайний срок", "Начать задачу с", "Завершить задачу"];
+const VISIBLE_COLS = ["Название", "Постановщик", "Наблюдатель", "Крайний срок", "Начать задачу с", "Завершить задачу"];
 
-  if (savedProject) {
-    state.projectName = savedProject;
-    document.getElementById('projectName').value = savedProject;
-  }
-  if (savedEmployees) {
-    try {
-      state.employees = JSON.parse(savedEmployees);
-      rebuildPositions();
-      renderStaffing();
-      // Статус при восстановлении
-      document.getElementById('staffingStatus').textContent = `Загружено из памяти: ${state.employees.length} человек`;
-    } catch(e) { console.warn("Ошибка восстановления сотрудников", e); }
+const ABBREVIATIONS = {
+  "ГС": "Главный специалист",
+  "ВС": "Ведущий специалист",
+  "СП": "Инженер",
+  "ТЕХ": "Техник"
+};
+
+// ═══════════ ИНИЦИАЛИЗАЦИЯ ═══════════
+window.addEventListener('DOMContentLoaded', () => {
+  updateModalSourceOptions();
+
+  const draft = localStorage.getItem('distributor_draft');
+  if (draft) {
+    if (confirm("Найдены несохраненные данные с прошлого сеанса. Восстановить их?")) {
+      try {
+        const parsed = JSON.parse(draft);
+        state.projectName = parsed.projectName || "";
+        state.employees = parsed.employees || [];
+        state.allTasks = parsed.allTasks || { "ПП": [], "ПД": [], "ТД": [], "РД": [] };
+        state.taskBases = parsed.taskBases || { "ПП": [], "ПД": [], "ТД": [], "РД": [] };
+
+        document.getElementById('projectName').value = state.projectName;
+        rebuildPositions();
+        renderStaffing();
+
+        state.tasks = state.allTasks[state.currentStage] || [];
+        loadStageTasks(state.currentStage);
+        renderTasks();
+        markUnsaved();
+      } catch(e) { console.warn("Ошибка восстановления", e); }
+    } else {
+      localStorage.removeItem('distributor_draft');
+    }
   }
 });
 
-function markUnsaved() { state.isDirty = true; }
+function markUnsaved() {
+  state.isDirty = true;
+  saveDraft();
+}
 
-// ★ ИЗМЕНЕННЫЙ ТЕКСТ ПРЕДУПРЕЖДЕНИЯ
+function saveDraft() {
+  try {
+    const draft = {
+      projectName: state.projectName,
+      employees: state.employees,
+      allTasks: state.allTasks,
+      taskBases: state.taskBases
+    };
+    localStorage.setItem('distributor_draft', JSON.stringify(draft));
+  } catch(e) { console.warn("Не удалось сохранить черновик", e); }
+}
+
 window.addEventListener('beforeunload', (e) => {
   if (state.isDirty) {
     e.preventDefault();
-    e.returnValue = 'Внимание! В таблице есть несохраненные данные. Вы уверены, что хотите закрыть или обновить страницу? Все несохраненные изменения будут потеряны.';
+    e.returnValue = 'Внимание! Есть несохраненные данные. Закрыть страницу?';
   }
 });
 
@@ -192,42 +361,22 @@ function switchTab(index) {
   document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === index));
 }
 
-// ★ ФУНКЦИЯ ПОЛНОЙ ОЧИСТКИ
-function clearAllData() {
-  if (!confirm("Вы уверены, что хотите полностью очистить все данные?\n\nБудут удалены:\n- Название проекта\n- Загруженное штатное расписание\n- Все распределенные задачи\n- Данные из памяти браузера\n\nЭто действие нельзя отменить.")) {
-    return;
+// ═══════════ ФУНКЦИЯ РАСШИФРОВКИ ДОЛЖНОСТИ ═══════════
+function decodePosition(input) {
+  if (!input) return "";
+  let str = input.trim();
+
+  for (const [abbr, full] of Object.entries(ABBREVIATIONS)) {
+    const regex = new RegExp(`(^|\\s)${abbr}(\\s|$)`, "i");
+    if (regex.test(str)) {
+      return str.replace(regex, (match, p1, p2) => `${p1}${full}${p2}`).trim();
+    }
   }
+  return str;
+}
 
-  localStorage.removeItem('distributor_projectName');
-  localStorage.removeItem('distributor_employees');
+// ═══════════ СТРАНИЦА 1: ШТАТНОЕ РАСПИСАНИЕ ═══════════
 
-  state.projectName = "";
-  state.positions = {};
-  state.employees = [];
-  state.tasks = [];
-  state.visibleCols = [];
-  state.boolCols = new Set();
-  state.dateCols = new Set();
-  state.originalHeaders = [];
-  state.sections = [];
-  state.isDirty = false;
-
-  document.getElementById('projectName').value = "";
-  // Статус очищен
-  document.getElementById('staffingTable').innerHTML = "";
-  document.getElementById('tasksStatus').textContent = "Файл не загружен";
-  document.getElementById('tasksTableWrap').innerHTML = "";
-  document.getElementById('addTaskBtn').disabled = true;
-
-  document.getElementById('sectionFilter').innerHTML = '<option value="">Все разделы</option>';
-  document.getElementById('sectionFilter').disabled = true;
-  document.getElementById('searchInput').value = "";
-
-  renderStaffing();
-  renderTasks();
-
-  alert("Все данные успешно очищены. Вы можете начать работу заново.");
-}// ═══════════ СТРАНИЦА 1 ═══════════
 function loadStaffing(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -244,58 +393,109 @@ function loadStaffing(event) {
       const headers = Object.keys(json[0]);
       const findHeader = (variants) => headers.find(h => variants.some(v => h.toLowerCase().includes(v.toLowerCase())));
 
-      const colPos = findHeader(["должность", "позиция", "роль"]);
-      const colSurname = findHeader(["фамилия", "фио", "сотрудник"]);
-      const colName = findHeader(["имя", "название"]);
+      let colPos = findHeader(["должность", "позиция", "роль"]);
+      let colSurname = findHeader(["фамилия", "фио", "сотрудник"]);
+      let colName = findHeader(["имя", "название"]);
 
       if (!colPos || !colSurname) {
-        alert("Не найдены нужные столбцы. Ожидались 'Должность' и 'Фамилия' (или 'ФИО').");
+        state.pendingFileData = { json, headers };
+
+        const selPos = document.getElementById('mapColPosition');
+        const selName = document.getElementById('mapColName');
+
+        selPos.innerHTML = '<option value="">-- Выберите --</option>';
+        selName.innerHTML = '<option value="">-- Выберите --</option>';
+
+        headers.forEach(h => {
+          selPos.innerHTML += `<option value="${h}">${h}</option>`;
+          selName.innerHTML += `<option value="${h}">${h}</option>`;
+        });
+
+        document.getElementById('mapColumnsModal').classList.add('active');
         return;
       }
 
-      const positions = {};
-      const employees = [];
+      processStaffingData(json, colPos, colSurname, colName);
 
-      for (const row of json) {
-        const surnameVal = String(row[colSurname] || "").trim();
-        const nameVal = colName ? String(row[colName] || "").trim() : "";
-
-        if (!surnameVal && !nameVal) continue;
-
-        const position = String(row[colPos] || "").trim();
-        if (!position) continue;
-
-        let fullName = "";
-        if (colSurname.toLowerCase().includes("фио") || colSurname.toLowerCase().includes("сотрудник")) {
-          fullName = surnameVal;
-        } else {
-          fullName = `${surnameVal} ${nameVal}`.trim();
-        }
-
-        if (!positions[position]) positions[position] = [];
-        if (!positions[position].includes(fullName)) {
-          positions[position].push(fullName);
-          employees.push({ position, full_name: fullName });
-        }
-      }
-
-      state.positions = positions;
-      state.employees = employees;
-      markUnsaved();
-
-      // При загрузке файла статус меняется на "Загружено: ..."
-      document.getElementById('staffingStatus').textContent =
-        `Загружено: ${Object.keys(positions).length} должностей, ${employees.length} человек`;
-      renderStaffing();
     } catch (err) { alert("Ошибка: " + err.message); }
   };
   reader.readAsArrayBuffer(file);
 }
 
+function processStaffingData(json, colPos, colSurname, colName) {
+  try {
+    const positions = {};
+    const employees = [];
+
+    for (const row of json) {
+      const surnameVal = String(row[colSurname] || "").trim();
+      const nameVal = colName ? String(row[colName] || "").trim() : "";
+      if (!surnameVal && !nameVal) continue;
+
+      const rawPos = String(row[colPos] || "").trim();
+      if (!rawPos) continue;
+
+      const position = decodePosition(rawPos);
+
+      let fullName = "";
+      if (colSurname.toLowerCase().includes("фио") || colSurname.toLowerCase().includes("сотрудник")) {
+        fullName = surnameVal;
+      } else {
+        fullName = `${surnameVal} ${nameVal}`.trim();
+      }
+
+      if (!positions[position]) positions[position] = [];
+      if (!positions[position].includes(fullName)) {
+        positions[position].push(fullName);
+        employees.push({ position, full_name: fullName });
+      }
+    }
+
+    state.positions = positions;
+    state.employees = employees;
+
+    for (const stage in state.allTasks) {
+      if (state.allTasks[stage].length > 0) {
+        autoAssignPostanovshikForList(state.allTasks[stage]);
+        autoAssignObserversForList(state.allTasks[stage]);
+      }
+    }
+    if (state.tasks.length > 0) renderTasks();
+
+    renderStaffing();
+    markUnsaved();
+  } catch (err) { alert("Ошибка при обработке: " + err.message); }
+}
+
+function applyColumnMapping() {
+  const colPos = document.getElementById('mapColPosition').value;
+  const colName = document.getElementById('mapColName').value;
+
+  if (!colPos || !colName) {
+    alert("Пожалуйста, выберите оба столбца.");
+    return;
+  }
+
+  closeMapColumnsModal();
+
+  if (state.pendingFileData) {
+    if (colPos === colName) {
+       processStaffingData(state.pendingFileData.json, colPos, colName, null);
+    } else {
+       processStaffingData(state.pendingFileData.json, colPos, colName, null);
+    }
+    state.pendingFileData = null;
+  }
+}
+
+function closeMapColumnsModal() {
+  document.getElementById('mapColumnsModal').classList.remove('active');
+}
+
 function renderStaffing() {
   const container = document.getElementById('staffingTable');
   if (state.employees.length === 0) {
-    container.innerHTML = '<p class="hint">Загрузите Excel-файл.</p>';
+    container.innerHTML = '<p class="hint">Загрузите Excel-файл или создайте штатку вручную.</p>';
     return;
   }
 
@@ -352,21 +552,112 @@ function rebuildPositions() {
 }
 
 function saveStaffing() {
-  const project = document.getElementById('projectName').value.trim();
-  if (!project) { alert("Введите название проекта"); return; }
+  let project = document.getElementById('projectName').value.trim();
+
+  if (!project) {
+    project = prompt("Введите название проекта (как в Битрикс):\n\nПример: 2350_Центр_методологии_проектирования_ВнПроект");
+    if (project === null) return;
+    project = project.trim();
+    if (!project) {
+      alert("Проект не может быть пустым. Сохранение отменено.");
+      return;
+    }
+    document.getElementById('projectName').value = project;
+  }
 
   state.projectName = project;
   rebuildPositions();
 
-  localStorage.setItem('distributor_projectName', project);
-  localStorage.setItem('distributor_employees', JSON.stringify(state.employees));
-
   state.isDirty = false;
-  alert(`Сохранено в память браузера.\nПроект: ${project}\nСотрудников: ${state.employees.length}`);
+  localStorage.removeItem('distributor_draft');
+  alert(`Сохранено.\nПроект: ${project}\nСотрудников: ${state.employees.length}`);
 }
 
-// ═══════════ СТРАНИЦА 2 ═══════════
-function loadTasks(event) {
+function openManualStaffingModal() {
+  state.manualRows = [{ position: "", name: "" }];
+  renderManualStaffing();
+  document.getElementById('manualStaffingModal').classList.add('active');
+}
+
+function closeManualStaffingModal() {
+  document.getElementById('manualStaffingModal').classList.remove('active');
+}
+
+function renderManualStaffing() {
+  const list = document.getElementById('manualStaffingList');
+  let html = '';
+
+  state.manualRows.forEach((row, idx) => {
+    html += `<div class="staff-input-row">
+      <input type="text" placeholder="Должность (ГС ОВиК)" value="${escapeHtml(row.position)}" oninput="updateManualRow(${idx}, 'position', this.value)">
+      <input type="text" placeholder="ФИО (Иванов Иван)" value="${escapeHtml(row.name)}" oninput="updateManualRow(${idx}, 'name', this.value)">
+      <button class="del-btn" onclick="removeManualRow(${idx})">✕</button>
+    </div>`;
+  });
+
+  list.innerHTML = html;
+}
+
+function updateManualRow(idx, field, value) {
+  state.manualRows[idx][field] = value;
+}
+
+function addManualStaffRow() {
+  state.manualRows.push({ position: "", name: "" });
+  renderManualStaffing();
+}
+
+function removeManualRow(idx) {
+  state.manualRows.splice(idx, 1);
+  if (state.manualRows.length === 0) {
+    state.manualRows.push({ position: "", name: "" });
+  }
+  renderManualStaffing();
+}
+
+function saveManualStaffing() {
+  let addedCount = 0;
+  const newEmployees = [];
+
+  state.manualRows.forEach(row => {
+    if (!row.position.trim() || !row.name.trim()) return;
+
+    const decodedPos = decodePosition(row.position);
+    newEmployees.push({ position: decodedPos, full_name: row.name.trim() });
+  });
+
+  if (newEmployees.length === 0) {
+    alert("Заполните хотя бы одну строку.");
+    return;
+  }
+
+  state.employees = [...state.employees, ...newEmployees];
+  rebuildPositions();
+
+  for (const stage in state.allTasks) {
+    if (state.allTasks[stage].length > 0) {
+      autoAssignPostanovshikForList(state.allTasks[stage]);
+      autoAssignObserversForList(state.allTasks[stage]);
+    }
+  }
+  if (state.tasks.length > 0) renderTasks();
+
+  renderStaffing();
+  markUnsaved();
+  closeManualStaffingModal();
+  alert(`Добавлено сотрудников: ${newEmployees.length}`);
+}
+  // ═══════════ СТРАНИЦА 2: РАСПРЕДЕЛЕНИЕ ЗАДАЧ ═══════════
+
+function changeStage() {
+  const newStage = document.getElementById('stageSelect').value;
+  state.allTasks[state.currentStage] = state.tasks;
+  state.currentStage = newStage;
+  loadStageTasks(newStage);
+  renderTasks();
+}
+
+function loadTaskBase(event) {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -379,45 +670,62 @@ function loadTasks(event) {
 
       if (json.length === 0) { alert("Файл пустой"); return; }
 
-      const rawHeaders = Object.keys(json[0]);
-      const realHeaders = rawHeaders.filter(h => !h.startsWith("__EMPTY"));
+      state.taskBases[state.currentStage] = json.map(row => ({
+        "Название": String(row["Название"] || "").trim(),
+        "Описание": String(row["Описание"] || "").trim(),
+        "Чеклист": String(row["Чеклист"] || "").trim(),
+        "Теги": String(row["Теги"] || "").trim()
+      })).filter(t => t["Название"] !== "");
 
-      const cleanJson = json.map(row => {
-        const out = {};
-        for (const h of realHeaders) out[h] = row[h];
-        return out;
-      }).filter(row => String(row["Название"] || "").trim() !== "");
-
-      state.originalHeaders = realHeaders;
-      const hidden = new Set(["Описание", "Теги", "Чеклист"]);
-      state.visibleCols = realHeaders.filter(h => !hidden.has(h));
-
-      state.dateCols = new Set();
-      for (const col of state.visibleCols) {
-        const lc = col.toLowerCase();
-        if (lc.includes("срок") || lc.includes("дата") || lc.includes("начать") || lc.includes("завершить")) {
-          state.dateCols.add(col);
-        }
-      }
-
-      const projectName = state.projectName.trim();
-      if (projectName) { for (const row of cleanJson) row["Проект"] = projectName; }
-      state.tasks = cleanJson;
-
-      sortTasks();
-      computeSections();
-      autoAssignPostanovshik();
-      autoAssignObservers();
-      state.boolCols = detectBoolCols();
-
-      document.getElementById('tasksStatus').textContent = `Загружено: ${cleanJson.length} задач`;
-      document.getElementById('addTaskBtn').disabled = false;
-      markUnsaved();
-      updateSectionFilter();
+      state.allTasks[state.currentStage] = [];
+      loadStageTasks(state.currentStage);
       renderTasks();
-    } catch (err) { alert("Ошибка: " + err.message); }
+      markUnsaved();
+
+      alert(`База задач загружена для стадии ${state.currentStage}! Найдено задач: ${state.taskBases[state.currentStage].length}`);
+
+    } catch (err) { alert("Ошибка при чтении файла: " + err.message); }
   };
   reader.readAsArrayBuffer(file);
+}
+
+function loadStageTasks(stage) {
+  if (state.allTasks[stage] && state.allTasks[stage].length > 0) {
+    state.tasks = state.allTasks[stage];
+  } else {
+    if (!state.taskBases[stage] || state.taskBases[stage].length === 0) {
+      state.tasks = [];
+      document.getElementById('tasksTableWrap').innerHTML = `<p class="hint" style="padding:20px;">База для стадии ${stage} пуста. Загрузите Excel-файл для этой стадии.</p>`;
+      document.getElementById('addTaskBtn').disabled = true;
+      return;
+    }
+
+    state.tasks = state.taskBases[stage].map(baseTask => {
+      return {
+        "Название": baseTask["Название"],
+        "Постановщик": "",
+        "Наблюдатель": "",
+        "Крайний срок": "",
+        "Начать задачу с": "",
+        "Завершить задачу": "",
+        "__Описание": baseTask["Описание"],
+        "__Чеклист": baseTask["Чеклист"],
+        "__Теги": baseTask["Теги"],
+        "__Раздел": ""
+      };
+    });
+
+    autoAssignPostanovshikForList(state.tasks);
+    autoAssignObserversForList(state.tasks);
+    state.allTasks[stage] = state.tasks;
+  }
+
+  sortTasks();
+  computeSections();
+  updateSectionFilter();
+
+  document.getElementById('addTaskBtn').disabled = false;
+  document.getElementById('searchInput').value = "";
 }
 
 function sortTasks() {
@@ -428,6 +736,324 @@ function sortTasks() {
   });
 }
 
+// ═══════════ МОДАЛЬНОЕ ОКНО ПРОСМОТРА ОПИСАНИЯ ═══════════
+
+function showInfoModal(taskIdx) {
+  const task = state.tasks[taskIdx];
+  if (!task) return;
+
+  document.getElementById('infoTaskTitle').textContent = task["Название"] || "Без названия";
+
+  const desc = task["__Описание"] || "Описание отсутствует.";
+
+  const tagsStr = task["__Теги"] || "";
+  const divisions = [];
+  if (tagsStr) {
+    const matches = tagsStr.match(/ОЗВ_для\s+([^,]+)/gi);
+    if (matches) {
+      matches.forEach(m => {
+        const div = m.replace(/ОЗВ_для\s+/i, '').trim();
+        if (div) divisions.push(div);
+      });
+    }
+  }
+
+  const sectionsHtml = divisions.length > 0
+    ? `<b>Выдается в раздел(ы):</b> ${escapeHtml(divisions.join(', '))}`
+    : `<b>Выдается в раздел(ы):</b> <span style="color:#999;">не указано</span>`;
+
+  document.getElementById('infoSections').innerHTML = sectionsHtml;
+  document.getElementById('infoDescription').innerHTML = `<b>Описание:</b><br>${escapeHtml(desc).replace(/\n/g, '<br>')}`;
+
+  document.getElementById('infoModal').classList.add('active');
+}
+
+function closeInfoModal() {
+  document.getElementById('infoModal').classList.remove('active');
+}
+
+// ═══════════ МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ ЗАДАЧ ═══════════
+
+function updateModalSourceOptions() {
+  const sel = document.getElementById('modalSourceSelect');
+  sel.innerHTML = '';
+  for (const stage of ["ПП", "ПД", "ТД", "РД"]) {
+    const opt = document.createElement('option');
+    opt.value = stage;
+    opt.textContent = `Из базы стадии ${stage}`;
+    sel.appendChild(opt);
+  }
+}
+
+function openAddTaskModal() {
+  document.getElementById('modalStageName').textContent = state.currentStage;
+  document.getElementById('modalSearchInput').value = "";
+  updateModalSourceOptions();
+  document.getElementById('modalSourceSelect').value = state.currentStage;
+  renderModalTasks();
+  document.getElementById('addTaskModal').classList.add('active');
+}
+
+function closeAddTaskModal() {
+  document.getElementById('addTaskModal').classList.remove('active');
+}
+
+function loadModalTaskBase(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const wb = XLSX.read(data, { type: 'array' });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const json = XLSX.utils.sheet_to_json(ws, { defval: "" });
+
+      if (json.length === 0) { alert("Файл пустой"); return; }
+
+      const targetStage = document.getElementById('modalSourceSelect').value;
+
+      state.taskBases[targetStage] = json.map(row => ({
+        "Название": String(row["Название"] || "").trim(),
+        "Описание": String(row["Описание"] || "").trim(),
+        "Чеклист": String(row["Чеклист"] || "").trim(),
+        "Теги": String(row["Теги"] || "").trim()
+      })).filter(t => t["Название"] !== "");
+
+      if (targetStage === state.currentStage) {
+        state.allTasks[state.currentStage] = [];
+      }
+
+      renderModalTasks();
+      alert(`База для стадии ${targetStage} загружена! Найдено задач: ${state.taskBases[targetStage].length}`);
+
+    } catch (err) { alert("Ошибка при чтении файла: " + err.message); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function renderModalTasks() {
+  const list = document.getElementById('modalTasksList');
+  const search = document.getElementById('modalSearchInput').value.toLowerCase();
+  const targetStage = document.getElementById('modalSourceSelect').value;
+
+  const sourceList = state.taskBases[targetStage] || [];
+
+  if (sourceList.length === 0) {
+    list.innerHTML = `<tr><td colspan="2" class="hint" style="padding:10px; text-align:center;">База для стадии ${targetStage} пуста. Загрузите Excel-файл.</td></tr>`;
+    return;
+  }
+
+  const existingNames = new Set(state.tasks.map(t => String(t["Название"]).trim()));
+
+  let html = '';
+  let count = 0;
+
+  sourceList.forEach((item, idx) => {
+    const itemTitle = item["Название"];
+    if (search && !itemTitle.toLowerCase().includes(search)) return;
+    count++;
+
+    const isAlreadyAdded = existingNames.has(itemTitle);
+
+    html += `<tr>
+      <td style="text-align:center;">
+        <input type="checkbox" class="modal-task-checkbox" value="${idx}" ${isAlreadyAdded ? 'disabled' : ''}>
+      </td>
+      <td style="${isAlreadyAdded ? 'color:#aaa; text-decoration:line-through;' : ''}">
+        ${escapeHtml(itemTitle)}
+        ${isAlreadyAdded ? ' <span style="font-size:11px; color:#999;">(уже добавлена)</span>' : ''}
+      </td>
+    </tr>`;
+  });
+
+  if (count === 0) {
+    html = '<tr><td colspan="2" class="hint" style="padding:10px; text-align:center;">Ничего не найдено.</td></tr>';
+  }
+
+  list.innerHTML = html;
+}
+
+function addSelectedTasks() {
+  const checkboxes = document.querySelectorAll('.modal-task-checkbox:checked');
+  if (checkboxes.length === 0) {
+    alert("Выберите хотя бы одну задачу для добавления.");
+    return;
+  }
+
+  const targetStage = document.getElementById('modalSourceSelect').value;
+  const sourceList = state.taskBases[targetStage] || [];
+  let addedCount = 0;
+
+  checkboxes.forEach(cb => {
+    const idx = parseInt(cb.value);
+    const item = sourceList[idx];
+
+    const newTask = {
+      "Название": item["Название"],
+      "Постановщик": "",
+      "Наблюдатель": "",
+      "Крайний срок": "",
+      "Начать задачу с": "",
+      "Завершить задачу": "",
+      "__Описание": item["Описание"] || "",
+      "__Чеклист": item["Чеклист"] || "",
+      "__Теги": item["Теги"] || "",
+      "__Раздел": ""
+    };
+
+    state.tasks.push(newTask);
+    addedCount++;
+  });
+
+  autoAssignPostanovshikForList(state.tasks);
+  autoAssignObserversForList(state.tasks);
+
+  state.isDirty = true;
+
+  sortTasks();
+  computeSections();
+  updateSectionFilter();
+  renderTasks();
+  closeAddTaskModal();
+  markUnsaved();
+
+  alert(`Добавлено задач: ${addedCount}`);
+}
+
+function createCustomTaskPrompt() {
+  document.getElementById('customTaskTitle').value = "";
+  document.getElementById('customTaskTags').value = "";
+  document.getElementById('customTaskDesc').value = "";
+
+  document.querySelector('input[name="useDesc"][value="no"]').checked = true;
+  toggleDescInput();
+
+  document.getElementById('customTaskModal').classList.add('active');
+  document.getElementById('addTaskModal').classList.remove('active');
+}
+
+function closeCustomTaskModal() {
+  document.getElementById('customTaskModal').classList.remove('active');
+  document.getElementById('addTaskModal').classList.add('active');
+}
+
+function toggleDescInput() {
+  const useDesc = document.querySelector('input[name="useDesc"]:checked').value === 'yes';
+  const descInput = document.getElementById('customTaskDesc');
+  if (useDesc) {
+    descInput.style.display = 'block';
+    descInput.focus();
+  } else {
+    descInput.style.display = 'none';
+  }
+}
+
+// ★ ГЛАВНАЯ ЛОГИКА СОЗДАНИЯ НОВОЙ ЗАДАЧИ (С ПРОВЕРКАМИ)
+function saveCustomTask() {
+  const titleInput = document.getElementById('customTaskTitle');
+  const rawTitle = titleInput.value.trim();
+
+  if (!rawTitle) {
+    alert("Введите название задачи!");
+    return;
+  }
+
+  // 1. Проверка формата (Префикс.Номер_Название)
+  const formatRegex = /^([А-Яа-яA-Za-z]+)\.(\d+)_(.+)$/;
+  const match = rawTitle.match(formatRegex);
+
+  if (!match) {
+    alert("Ошибка формата! Название должно быть в формате:\nПрефикс.Номер_Название\n\nПример: АР.10_Задание на потолки");
+    return;
+  }
+
+  const prefix = match[1];
+  const number = match[2];
+
+  // 2. Проверка на дубликат номера в текущей стадии
+  const isDuplicate = state.tasks.some(task => {
+    const existingTitle = String(task["Название"] || "");
+    const existingMatch = existingTitle.match(formatRegex);
+    if (!existingMatch) return false;
+
+    // Сравниваем префикс (без учета регистра) и номер
+    return existingMatch[1].toLowerCase() === prefix.toLowerCase() && existingMatch[2] === number;
+  });
+
+  if (isDuplicate) {
+    alert(`Ошибка! Задача с номером ${prefix}.${number} уже существует в этой стадии.`);
+    return;
+  }
+
+  // 3. Если проверки пройдены — создаем задачу (в память, база не трогается)
+  const userTagsInput = document.getElementById('customTaskTags').value.trim();
+  let finalTags = "";
+  let observersText = "";
+
+  if (userTagsInput) {
+    const divisions = userTagsInput.split(',').map(s => s.trim().toUpperCase()).filter(s => s);
+    finalTags = divisions.map(d => `ОЗВ_для ${d}`).join(', ');
+
+    const observersList = [];
+    if (Object.keys(state.positions).length > 0) {
+      for (const div of divisions) {
+        for (const [pos, names] of Object.entries(state.positions)) {
+          if (pos.toUpperCase().includes(div)) {
+            for (const name of names) {
+              if (!observersList.includes(name)) observersList.push(name);
+            }
+          }
+        }
+      }
+    }
+    if (observersList.length > 0) {
+      observersText = observersList.join(", ");
+    }
+  }
+
+  const useDesc = document.querySelector('input[name="useDesc"]:checked').value === 'yes';
+  const description = useDesc ? document.getElementById('customTaskDesc').value.trim() : "";
+
+  const newTask = {
+    "Название": rawTitle,
+    "Постановщик": "",
+    "Наблюдатель": observersText,
+    "Крайний срок": "",
+    "Начать задачу с": "",
+    "Завершить задачу": "",
+    "__Описание": description,
+    "__Чеклист": "",
+    "__Теги": finalTags,
+    "__Раздел": ""
+  };
+
+  state.tasks.push(newTask);
+  autoAssignPostanovshikForList(state.tasks);
+  state.isDirty = true;
+
+  sortTasks();
+  computeSections();
+  updateSectionFilter();
+  renderTasks();
+  markUnsaved();
+
+  closeCustomTaskModal();
+  document.getElementById('addTaskModal').classList.remove('active');
+}
+
+// ═══════════ ОТРИСОВКА И РЕДАКТИРОВАНИЕ ═══════════
+
+function deleteTask(idx) {
+  if (!confirm(`Удалить задачу?`)) return;
+  state.tasks.splice(idx, 1);
+  state.isDirty = true;
+  computeSections();
+  updateSectionFilter();
+  renderTasks();
+  markUnsaved();
+}
+
 function computeSections() {
   for (const row of state.tasks) {
     const title = String(row["Название"] || "").trim();
@@ -435,12 +1061,12 @@ function computeSections() {
     if (title) {
       const match = title.match(/^([^\d]*)/);
       if (match) {
-        section = match[1].trim();
-        section = section.replace(/\.+$/, "").trim();
+        section = match[1].trim().replace(/\.+$/, "").trim();
       }
     }
     row["__Раздел"] = section;
   }
+
   const set = new Set();
   for (const row of state.tasks) { if (row["__Раздел"]) set.add(row["__Раздел"]); }
   state.sections = [...set].sort();
@@ -465,315 +1091,254 @@ function resetFilters() {
   renderTasks();
 }
 
-function detectBoolCols() {
-  const boolCols = new Set();
-  for (const col of state.visibleCols) {
-    const values = new Set();
-    for (const row of state.tasks) {
-      const v = row[col];
-      if (v === undefined || v === null) continue;
-      const s = String(v).trim().toLowerCase();
-      if (s === "" || s === "nan") continue;
-      values.add(s);
-    }
-    if (values.size > 0 && [...values].every(v => ["0", "1", "true", "false"].includes(v))) boolCols.add(col);
-  }
-  return boolCols;
-}
-
 function renderTasks() {
   const wrap = document.getElementById('tasksTableWrap');
   if (state.tasks.length === 0) {
-    wrap.innerHTML = '<p class="hint">Нет задач.</p>';
+    wrap.innerHTML = `<p class="hint">Нет задач для стадии ${state.currentStage}.</p>`;
     return;
   }
 
-  const filter = document.getElementById('sectionFilter').value;
   const search = document.getElementById('searchInput').value.toLowerCase();
+  const filter = document.getElementById('sectionFilter').value;
 
   let html = '<table><thead><tr>';
-  html += '<th class="section-col" title="Раздел">Раздел</th>';
-  for (const col of state.visibleCols) {
+  html += `<th style="width: 80px; background: #f0f5f3; color: #225545;">Раздел</th>`;
+
+  for (const col of VISIBLE_COLS) {
     const cls = col === "Название" ? ' class="name-col"' : '';
-    html += `<th${cls} title="${escapeHtml(col)}">${escapeHtml(col)}</th>`;
+    html += `<th${cls}>${escapeHtml(col)}</th>`;
   }
   html += '<th style="width:50px"></th></tr></thead><tbody>';
 
   let visibleCount = 0;
 
   state.tasks.forEach((row, rowIdx) => {
-    if (filter && row["__Раздел"] !== filter) return;
     if (search && !String(row["Название"] || "").toLowerCase().includes(search)) return;
+    if (filter && row["__Раздел"] !== filter) return;
 
     visibleCount++;
     html += `<tr id="task-row-${rowIdx}">`;
-    html += `<td class="section-col">${escapeHtml(row["__Раздел"] || "")}</td>`;
-    for (const col of state.visibleCols) {
+    html += `<td style="font-weight:600; color:#225545; background:#f9fbfa;">${escapeHtml(row["__Раздел"] || "")}</td>`;
+
+    for (const col of VISIBLE_COLS) {
       const val = row[col];
       const display = (val === undefined || val === null || String(val).toLowerCase() === "nan") ? "" : String(val);
 
-      if (state.boolCols.has(col)) {
-        const checked = display === "1" || display.toLowerCase() === "true";
-        html += `<td class="center"><input type="checkbox" ${checked ? "checked" : ""} onchange="toggleBool(${rowIdx}, '${escapeAttr(col)}', this.checked)"></td>`;
-      } else if (col === "Название") {
-        html += `<td class="name-col" ondblclick="startCellEdit(${rowIdx}, '${escapeAttr(col)}')" id="cell-${rowIdx}-${colIdx(col)}">${escapeHtml(display)}</td>`;
-      } else {
+      if (col === "Название") {
+        html += `<td class="name-col" onclick="showInfoModal(${rowIdx})" title="Нажмите для просмотра описания">${escapeHtml(display)}</td>`;
+      } else if (col === "Крайний срок" || col === "Начать задачу с" || col === "Завершить задачу") {
         html += `<td ondblclick="startCellEdit(${rowIdx}, '${escapeAttr(col)}')" id="cell-${rowIdx}-${colIdx(col)}">${escapeHtml(display)}</td>`;
+      } else {
+        html += `<td style="color:#555;">${escapeHtml(display)}</td>`;
       }
     }
-    html += `<td class="center"><button class="del-btn" title="Удалить" onclick="deleteTask(${rowIdx})">✕</button></td>`;
+    html += `<td class="center"><button class="del-btn" onclick="deleteTask(${rowIdx})">✕</button></td>`;
     html += '</tr>';
   });
   html += '</tbody></table>';
 
   if (visibleCount === 0) {
-    wrap.innerHTML = '<p class="hint" style="padding:20px; text-align:center;">По вашему запросу ничего не найдено. Попробуйте изменить фильтры.</p>';
+    wrap.innerHTML = '<p class="hint" style="padding:20px; text-align:center;">По вашему запросу ничего не найдено.</p>';
   } else {
     wrap.innerHTML = html;
   }
 }
 
-function colIdx(col) { return state.visibleCols.indexOf(col); }
-function toggleBool(rowIdx, col, checked) { state.tasks[rowIdx][col] = checked ? "1" : "0"; markUnsaved(); }
+function colIdx(col) { return VISIBLE_COLS.indexOf(col); }
 
 function startCellEdit(rowIdx, col) {
+  if (!EDITABLE_COLS.includes(col)) return;
+
   const cellId = `cell-${rowIdx}-${colIdx(col)}`;
   const cell = document.getElementById(cellId);
   if (!cell) return;
 
-  const current = state.tasks[rowIdx][col] ?? "";
-  const isDate = state.dateCols.has(col);
-
+  let current = state.tasks[rowIdx][col] ?? "";
   const input = document.createElement('input');
   input.type = 'text';
   input.className = 'cell-edit';
   input.value = current;
-  input.placeholder = isDate ? "ДД.ММ.ГГГГ" : "";
+  input.placeholder = "ДД.ММ.ГГГГ";
 
-  if (isDate) {
-    input.addEventListener('input', function(e) {
-      let v = this.value.replace(/\D/g, '');
-      if (v.length > 2 && v.length <= 4) {
-        v = v.slice(0, 2) + '.' + v.slice(2);
-      } else if (v.length > 4) {
-        v = v.slice(0, 2) + '.' + v.slice(2, 4) + '.' + v.slice(4, 8);
-      }
-      this.value = v;
-    });
-  }
+  input.addEventListener('input', function(e) {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 2 && v.length <= 4) v = v.slice(0, 2) + '.' + v.slice(2);
+    else if (v.length > 4) v = v.slice(0, 2) + '.' + v.slice(2, 4) + '.' + v.slice(4, 8);
+    this.value = v;
+  });
 
   cell.innerHTML = ''; cell.appendChild(input); input.focus(); input.select();
 
   const commit = () => {
     let finalVal = input.value.trim();
-    if (isDate) {
-      const regex = /^\d{2}\.\d{2}\.\d{4}$/;
-      if (finalVal && !regex.test(finalVal)) {
-        alert("Дата должна быть в формате ДД.ММ.ГГГГ (например, 25.10.2026)");
-        input.style.borderColor = "red";
-        return;
-      }
+    const regex = /^\d{2}\.\d{2}\.\d{4}$/;
+    if (finalVal && !regex.test(finalVal)) {
+      alert("Дата должна быть в формате ДД.ММ.ГГГГ");
+      return;
     }
 
     state.tasks[rowIdx][col] = finalVal;
     markUnsaved();
-
-    if (col === "Название") {
-      sortTasks();
-      computeSections();
-      autoAssignPostanovshik();
-      autoAssignObservers();
-      updateSectionFilter();
-
-      const newIndex = state.tasks.findIndex(r => String(r["Название"]).trim() === finalVal);
-      renderTasks();
-
-      if (newIndex !== -1) {
-        setTimeout(() => {
-          const rowElement = document.getElementById(`task-row-${newIndex}`);
-          if (rowElement) {
-            rowElement.scrollIntoView({ behavior: "smooth", block: "center" });
-            rowElement.style.backgroundColor = "#d1e7dd";
-            setTimeout(() => { rowElement.style.backgroundColor = ""; }, 1500);
-          }
-        }, 50);
-      }
-    } else {
-      cell.textContent = finalVal;
-    }
+    renderTasks();
   };
 
-  const cancel = () => { cell.textContent = current; };
-
-  input.addEventListener('blur', () => {
-    if (isDate) {
-      const regex = /^\d{2}\.\d{2}\.\d{4}$/;
-      if (input.value.trim() && !regex.test(input.value.trim())) {
-        alert("Дата должна быть в формате ДД.ММ.ГГГГ (например, 25.10.2026)");
-        cell.textContent = current;
-        return;
-      }
-    }
-    commit();
-  });
-
+  input.addEventListener('blur', commit);
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
-    if (e.key === 'Escape') { e.preventDefault(); input.removeEventListener('blur', commit); cancel(); }
+    if (e.key === 'Escape') { e.preventDefault(); renderTasks(); }
   });
 }
 
-// ═══════════ ДОБАВЛЕНИЕ ═══════════
-function addTask() {
-  if (state.visibleCols.length === 0) return;
+// ═══════════ УМНАЯ ВАЛИДАЦИЯ И ЭКСПОРТ ═══════════
 
-  const emptyRow = {};
-  for (const h of state.originalHeaders) emptyRow[h] = "";
-  if (state.projectName.trim() && state.originalHeaders.includes("Проект")) emptyRow["Проект"] = state.projectName.trim();
-  emptyRow["__Раздел"] = "";
+function validateDates() {
+  let hasErrors = false;
+  document.querySelectorAll('.cell-error').forEach(el => el.classList.remove('cell-error'));
 
-  state.tasks.push(emptyRow);
-  const newIndex = state.tasks.length - 1;
+  state.tasks.forEach((t, rowIdx) => {
+    const start = t["Начать задачу с"];
+    const end = t["Завершить задачу"];
+    const deadline = t["Крайний срок"];
 
-  computeSections();
-  updateSectionFilter();
-  renderTasks();
-  markUnsaved();
+    const isValidDate = (d) => !d || /^\d{2}\.\d{2}\.\d{4}$/.test(d);
+    if (!isValidDate(start) || !isValidDate(end) || !isValidDate(deadline)) return;
 
-  document.getElementById('tasksStatus').textContent = `Задач: ${state.tasks.length}`;
+    const toDate = (d) => {
+      if (!d) return null;
+      const parts = d.split('.');
+      return new Date(parts[2], parts[1] - 1, parts[0]);
+    };
 
-  setTimeout(() => {
-    const newRow = document.getElementById(`task-row-${newIndex}`);
-    if (newRow) {
-      newRow.scrollIntoView({ behavior: "smooth", block: "center" });
-      newRow.style.backgroundColor = "#fff3cd";
-      setTimeout(() => { newRow.style.backgroundColor = ""; }, 1500);
+    const dStart = toDate(start);
+    const dEnd = toDate(end);
+    const dDeadline = toDate(deadline);
 
-      const nameColIndex = state.visibleCols.indexOf("Название");
-      if (nameColIndex !== -1) {
-        startCellEdit(newIndex, "Название");
-      }
+    let rowHasError = false;
+
+    if (dStart && dEnd && dStart > dEnd) {
+      markError(rowIdx, "Начать задачу с");
+      markError(rowIdx, "Завершить задачу");
+      rowHasError = true;
     }
-  }, 100);
-}
 
-function deleteTask(idx) {
-  if (!confirm(`Удалить задачу №${idx + 1}?`)) return;
-  state.tasks.splice(idx, 1);
-  computeSections(); updateSectionFilter(); renderTasks(); markUnsaved();
-  document.getElementById('tasksStatus').textContent = `Задач: ${state.tasks.length}`;
-}
-
-// ═══════════ СОХРАНЕНИЕ ═══════════
-
-function prepareDataForSave() {
-  const projectName = state.projectName.trim();
-  if (projectName) { for (const row of state.tasks) row["Проект"] = projectName; }
-  computeSections();
-
-  const headers = state.originalHeaders.filter(h => !h.startsWith("__"));
-
-  let emptyAssignees = 0;
-  for (const row of state.tasks) {
-    if (!String(row["Постановщик"] || "").trim()) emptyAssignees++;
-  }
-  if (emptyAssignees > 0) {
-    if (!confirm(`Внимание: у ${emptyAssignees} задач не заполнен "Постановщик".\nПродолжить сохранение?`)) {
-      return null;
+    if (dStart && dDeadline && dStart > dDeadline) {
+      markError(rowIdx, "Начать задачу с");
+      markError(rowIdx, "Крайний срок");
+      rowHasError = true;
     }
-  }
 
-  return state.tasks.map(row => {
-    const out = {};
-    for (const h of headers) {
-      out[h] = row[h] !== undefined ? row[h] : "";
+    if (dDeadline && dEnd && dDeadline > dEnd) {
+       markError(rowIdx, "Крайний срок");
+       markError(rowIdx, "Завершить задачу");
+       rowHasError = true;
     }
-    return out;
+
+    if (rowHasError) hasErrors = true;
   });
+
+  return !hasErrors;
+}
+
+function markError(rowIdx, col) {
+  const cell = document.getElementById(`cell-${rowIdx}-${colIdx(col)}`);
+  if (cell) cell.classList.add('cell-error');
+}
+
+function prepareBitrixData() {
+  return state.tasks.map(t => {
+    return {
+      "Название": t["Название"] || "",
+      "Описание": t["__Описание"] || "",
+      "Постановщик": t["Постановщик"] || "",
+      "Наблюдатель": t["Наблюдатель"] || "",
+      "Важность": "0",
+      "Крайний срок": t["Крайний срок"] || "",
+      "Начать задачу с": t["Начать задачу с"] || "",
+      "Завершить задачу": t["Завершить задачу"] || "",
+      "Разрешить исполнителю менять сроки задачи": "0",
+      "Пропустить выходные и праздничные дни": "1",
+      "Проконтролировать задачу после завершения": "1",
+      "Сроки определяются сроками подзадач": "1",
+      "Автоматически завершать задачу при завершении подзадач": "1",
+      "Проект": state.projectName || "",
+      "Задано время на завершение задачи": "0",
+      "Время на выполнение задачи в секундах": "",
+      "Чеклист": t["__Чеклист"] || "",
+      "Теги": t["__Теги"] || ""
+    };
+  });
+}
+
+function getFilename(ext) {
+  const currentProjectName = document.getElementById('projectName').value.trim() || state.projectName;
+  const safeProj = currentProjectName ? currentProjectName.replace(/[\\/:*?"<>|]/g, '_') : "";
+  const prefix = safeProj ? safeProj + "_" : "";
+  return `${prefix}Задачи_${state.currentStage}.${ext}`;
 }
 
 function saveTasksExcel() {
-  if (state.tasks.length === 0) { alert("Нет данных для сохранения"); return; }
+  if (state.tasks.length === 0) { alert("Нет задач"); return; }
+  if (!state.projectName) {
+    alert("Сначала введите и сохраните название проекта на первой вкладке!");
+    return;
+  }
+  if (!validateDates()) {
+    alert("Ошибка в датах! Ячейки с ошибками подсвечены красным. Исправьте сроки перед сохранением.");
+    return;
+  }
 
-  autoAssignPostanovshik();
-  autoAssignObservers();
-  sortTasks();
-  renderTasks();
-
-  const data = prepareDataForSave();
-  if (!data) return;
-
+  const data = prepareBitrixData();
   const ws = XLSX.utils.json_to_sheet(data);
   const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Задачи");
-
-  XLSX.writeFile(wb, "Задачи_обновлённые.xlsx");
-  state.isDirty = false;
+  XLSX.utils.book_append_sheet(wb, ws, "task");
+  XLSX.writeFile(wb, getFilename("xlsx"));
 }
 
 function saveTasksCsv() {
-  if (state.tasks.length === 0) { alert("Нет данных для сохранения"); return; }
+  if (state.tasks.length === 0) { alert("Нет задач"); return; }
+  if (!state.projectName) {
+    alert("Сначала введите и сохраните название проекта на первой вкладке!");
+    return;
+  }
+  if (!validateDates()) {
+    alert("Ошибка в датах! Ячейки с ошибками подсвечены красным. Исправьте сроки перед сохранением.");
+    return;
+  }
 
-  autoAssignPostanovshik();
-  autoAssignObservers();
-  sortTasks();
-  renderTasks();
+  const data = prepareBitrixData();
 
-  const data = prepareDataForSave();
-  if (!data) return;
-
-  const encoding = document.getElementById('csvEncoding').value;
-
-  const headers = Object.keys(data[0] || {});
+  const headers = Object.keys(data[0]);
   const escapeCsv = (val) => {
-    if (val === undefined || val === null) return "";
-    let s = String(val);
-    if (s.includes('"') || s.includes(",") || s.includes("\n") || s.includes("\r")) {
-      s = '"' + s.replace(/"/g, '""') + '"';
-    }
+    let s = String(val === undefined || val === null ? "" : val);
+    if (s.includes('"') || s.includes(",") || s.includes("\n")) s = '"' + s.replace(/"/g, '""') + '"';
     return s;
   };
 
-  const lines = [];
-  lines.push(headers.map(escapeCsv).join(","));
-  for (const row of data) {
-    lines.push(headers.map(h => escapeCsv(row[h])).join(","));
-  }
+  const lines = [headers.map(escapeCsv).join(",")];
+  data.forEach(row => lines.push(headers.map(h => escapeCsv(row[h])).join(",")));
+
   const csvContent = lines.join("\r\n");
+  const encoding = document.getElementById('csvEncoding').value;
 
   let blob;
   if (encoding === "windows-1251") {
-    const buf = new ArrayBuffer(csvContent.length);
-    const bufView = new Uint8Array(buf);
-    for (let i = 0, strLen = csvContent.length; i < strLen; i++) {
-      let charCode = csvContent.charCodeAt(i);
-      if (charCode >= 1040 && charCode <= 1103) {
-        bufView[i] = charCode - 848;
-      } else if (charCode === 1025) {
-        bufView[i] = 168;
-      } else if (charCode === 1105) {
-        bufView[i] = 184;
-      } else {
-        bufView[i] = charCode & 0xFF;
-      }
-    }
-    blob = new Blob([buf], { type: "text/csv;charset=windows-1251;" });
+    blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
   } else {
     blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
   }
 
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url; a.download = "Задачи_обновлённые.csv";
+  const a = document.createElement('a');
+  a.href = url; a.download = getFilename("csv");
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-  state.isDirty = false;
 }
 
-// ═══════════ ЛОГИКА РАССТАНОВКИ ═══════════
-function autoAssignPostanovshik() {
+// ═══════════ АВТОРАССТАНОВКА ═══════════
+function autoAssignPostanovshikForList(list) {
   if (Object.keys(state.positions).length === 0) return;
   const positionKeys = Object.keys(state.positions).sort((a, b) => b.length - a.length);
-  for (const row of state.tasks) {
+  for (const row of list) {
+    if (row["Постановщик"]) continue;
     const title = String(row["Название"] || "").trim();
     if (!title || !title.includes(".")) continue;
     const prefix = title.split(".")[0].trim();
@@ -783,11 +1348,12 @@ function autoAssignPostanovshik() {
   }
 }
 
-function autoAssignObservers() {
+function autoAssignObserversForList(list) {
   if (Object.keys(state.positions).length === 0) return;
-  for (const row of state.tasks) {
-    const tags = String(row["Теги"] || "").trim();
-    if (!tags || tags.toLowerCase() === "nan") continue;
+  for (const row of list) {
+    if (row["Наблюдатель"]) continue;
+    const tags = String(row["__Теги"] || "").trim();
+    if (!tags) continue;
     const codes = [];
     for (const tag of tags.split(",")) {
       const t = tag.trim();
@@ -810,9 +1376,7 @@ function autoAssignObservers() {
 }
 
 function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, (m) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  })[m]);
+  return String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
 }
 function escapeAttr(str) { return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 </script>
