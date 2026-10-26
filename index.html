@@ -949,7 +949,6 @@ function toggleDescInput() {
   }
 }
 
-// ★ ГЛАВНАЯ ЛОГИКА СОЗДАНИЯ НОВОЙ ЗАДАЧИ (С ПРОВЕРКАМИ)
 function saveCustomTask() {
   const titleInput = document.getElementById('customTaskTitle');
   const rawTitle = titleInput.value.trim();
@@ -959,7 +958,6 @@ function saveCustomTask() {
     return;
   }
 
-  // 1. Проверка формата (Префикс.Номер_Название)
   const formatRegex = /^([А-Яа-яA-Za-z]+)\.(\d+)_(.+)$/;
   const match = rawTitle.match(formatRegex);
 
@@ -971,13 +969,11 @@ function saveCustomTask() {
   const prefix = match[1];
   const number = match[2];
 
-  // 2. Проверка на дубликат номера в текущей стадии
   const isDuplicate = state.tasks.some(task => {
     const existingTitle = String(task["Название"] || "");
     const existingMatch = existingTitle.match(formatRegex);
     if (!existingMatch) return false;
 
-    // Сравниваем префикс (без учета регистра) и номер
     return existingMatch[1].toLowerCase() === prefix.toLowerCase() && existingMatch[2] === number;
   });
 
@@ -986,7 +982,6 @@ function saveCustomTask() {
     return;
   }
 
-  // 3. Если проверки пройдены — создаем задачу (в память, база не трогается)
   const userTagsInput = document.getElementById('customTaskTags').value.trim();
   let finalTags = "";
   let observersText = "";
@@ -1206,7 +1201,7 @@ function validateDates() {
     const toDate = (d) => {
       if (!d) return null;
       const parts = d.split('.');
-      return new Date(parts[2], parts[1] - 1, parts[0]);
+      return new Date(parts[2], parts[1] - 1, parts[0]).getTime();
     };
 
     const dStart = toDate(start);
@@ -1215,21 +1210,17 @@ function validateDates() {
 
     let rowHasError = false;
 
-    if (dStart && dEnd && dStart > dEnd) {
+    // 1. Начало не может быть позже Завершения
+    if (dStart !== null && dEnd !== null && dStart > dEnd) {
       markError(rowIdx, "Начать задачу с");
       markError(rowIdx, "Завершить задачу");
       rowHasError = true;
     }
 
-    if (dStart && dDeadline && dStart > dDeadline) {
-      markError(rowIdx, "Начать задачу с");
-      markError(rowIdx, "Крайний срок");
-      rowHasError = true;
-    }
-
-    if (dDeadline && dEnd && dDeadline > dEnd) {
-       markError(rowIdx, "Крайний срок");
+    // 2. ★ ИСПРАВЛЕНО: Завершить задачу (желаемая дата) не может быть позже Крайнего срока (конечной даты)
+    if (dEnd !== null && dDeadline !== null && dEnd > dDeadline) {
        markError(rowIdx, "Завершить задачу");
+       markError(rowIdx, "Крайний срок");
        rowHasError = true;
     }
 
@@ -1246,32 +1237,40 @@ function markError(rowIdx, col) {
 
 function prepareBitrixData() {
   return state.tasks.map(t => {
+    let desc = String(t["__Описание"] || "");
+    let check = String(t["__Чеклист"] || "");
+    let tags = String(t["__Теги"] || "");
+
+    desc = desc.replace(/^"|"$/g, '');
+    check = check.replace(/^"|"$/g, '');
+    tags = tags.replace(/^"|"$/g, '');
+
     return {
-      "Название": t["Название"] || "",
-      "Описание": t["__Описание"] || "",
-      "Постановщик": t["Постановщик"] || "",
-      "Наблюдатель": t["Наблюдатель"] || "",
+      "Название": String(t["Название"] || ""),
+      "Описание": desc,
+      "Постановщик": String(t["Постановщик"] || ""),
+      "Наблюдатель": String(t["Наблюдатель"] || ""),
       "Важность": "0",
-      "Крайний срок": t["Крайний срок"] || "",
-      "Начать задачу с": t["Начать задачу с"] || "",
-      "Завершить задачу": t["Завершить задачу"] || "",
+      "Крайний срок": String(t["Крайний срок"] || ""),
+      "Начать задачу с": String(t["Начать задачу с"] || ""),
+      "Завершить задачу": String(t["Завершить задачу"] || ""),
       "Разрешить исполнителю менять сроки задачи": "0",
       "Пропустить выходные и праздничные дни": "1",
       "Проконтролировать задачу после завершения": "1",
       "Сроки определяются сроками подзадач": "1",
       "Автоматически завершать задачу при завершении подзадач": "1",
-      "Проект": state.projectName || "",
+      "Проект": String(state.projectName || ""),
       "Задано время на завершение задачи": "0",
       "Время на выполнение задачи в секундах": "",
-      "Чеклист": t["__Чеклист"] || "",
-      "Теги": t["__Теги"] || ""
+      "Чеклист": check,
+      "Теги": tags
     };
   });
 }
 
 function getFilename(ext) {
   const currentProjectName = document.getElementById('projectName').value.trim() || state.projectName;
-  const safeProj = currentProjectName ? currentProjectName.replace(/[\\/:*?"<>|]/g, '_') : "";
+  const safeProj = currentProjectName ? String(currentProjectName).replace(/[\\/:*?"<>|]/g, '_') : "";
   const prefix = safeProj ? safeProj + "_" : "";
   return `${prefix}Задачи_${state.currentStage}.${ext}`;
 }
@@ -1291,6 +1290,7 @@ function saveTasksExcel() {
   const ws = XLSX.utils.json_to_sheet(data);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "task");
+
   XLSX.writeFile(wb, getFilename("xlsx"));
 }
 
@@ -1310,7 +1310,10 @@ function saveTasksCsv() {
   const headers = Object.keys(data[0]);
   const escapeCsv = (val) => {
     let s = String(val === undefined || val === null ? "" : val);
-    if (s.includes('"') || s.includes(",") || s.includes("\n")) s = '"' + s.replace(/"/g, '""') + '"';
+    s = s.replace(/\r?\n/g, ' ');
+    if (s.includes('"') || s.includes(",") || s.includes(";")) {
+      s = '"' + s.replace(/"/g, '""') + '"';
+    }
     return s;
   };
 
@@ -1376,9 +1379,9 @@ function autoAssignObserversForList(list) {
 }
 
 function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+  return String(str || "").replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
 }
-function escapeAttr(str) { return String(str).replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+function escapeAttr(str) { return String(str || "").replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 </script>
 </body>
 </html>
